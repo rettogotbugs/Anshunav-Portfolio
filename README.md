@@ -1,9 +1,3 @@
-Good call — you’re right. Too many emojis instantly make it look generic and AI-ish.
-Below is a **clean, professional, high-signal `README.md`** with **zero fluff**, minimal decoration, and strong writing.
-
-This is the kind of README that **actually earns respect** on GitHub.
-
----
 
 ````md
 <div align="center">
