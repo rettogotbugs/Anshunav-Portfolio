@@ -1,3 +1,6 @@
+
+
+````md
 <div align="center">
 
 # Anshunav Bora
@@ -61,39 +64,51 @@ src/
 │   └── blogs.ts       Blog content source
 ├── styles/            Global styling
 └── utils/             Helper utilities
+````
 
+---
 
+## Running the Project Locally
 
-Running the Project Locally
+```bash
 git clone https://github.com/your-username/portfolio.git
 cd portfolio
 npm install
 npm run dev
+```
 
+The application will be available at
+`http://localhost:3000`
 
-The application will be available at http://localhost:3000
+---
 
-Purpose
+## Purpose
 
 This portfolio is a living project that reflects how I approach development:
 
-Learning by building
+* Learning by building
+* Prioritizing clarity over complexity
+* Improving through iteration
 
-Prioritizing clarity over complexity
+---
 
-Improving through iteration
-
-Location
+## Location
 
 India
 
-License
+---
+
+## License
 
 This project is open for learning and reference.
 Please do not copy the design or written content directly.
+
+---
 
 <div align="center">
 
 © 2025 Anshunav Bora
 
-</div> ```
+</div>
+```
+
