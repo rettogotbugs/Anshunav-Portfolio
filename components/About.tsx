@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { STATS } from '../constants';
+import { STATS } from '../constants.tsx';
 import { User } from 'lucide-react';
 
 export const About: React.FC = () => {

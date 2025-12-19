@@ -1,5 +1,5 @@
 import React from 'react';
-import { HERO_DATA } from '../constants';
+import { HERO_DATA } from '../constants.tsx';
 import { ArrowRight, Github, Linkedin, Twitter, ChevronDown } from 'lucide-react';
 
 export const Hero: React.FC<{ onNavigate: (id: string) => void }> = ({ onNavigate }) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SKILLS, DESIGN_SKILLS } from '../constants';
+import { SKILLS, DESIGN_SKILLS } from '../constants.tsx';
 import { Cpu, Palette } from 'lucide-react';
 
 export const Skills: React.FC = () => {

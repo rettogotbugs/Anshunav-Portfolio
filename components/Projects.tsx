@@ -1,6 +1,6 @@
 import React from 'react';
-import { PROJECTS, HERO_DATA } from '../constants';
-import { Project } from '../types';
+import { PROJECTS, HERO_DATA } from '../constants.tsx';
+import { Project } from '../types.ts';
 import { ArrowUpRight, Github, Code } from 'lucide-react';
 
 interface ProjectsProps {

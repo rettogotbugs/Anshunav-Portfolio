@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail, MapPin, Github, Linkedin, ArrowRight, Copy, ExternalLink, Send } from 'lucide-react';
-import { HERO_DATA } from '../constants';
+import { HERO_DATA } from '../constants.tsx';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = React.useState(false);

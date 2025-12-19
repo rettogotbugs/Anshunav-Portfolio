@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { X, ArrowLeft, Calendar, Tag, Layers, CheckCircle } from 'lucide-react';
-import { Project, BlogPost } from '../types';
+import { Project, BlogPost } from '../types.ts';
 
 interface ArticleViewProps {
   data: Project | BlogPost | null;

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Skills } from './components/Skills';
-import { Projects } from './components/Projects';
-import { Blogs } from './components/Blogs';
-import { Contact } from './components/Contact';
-import { ArticleView } from './components/ArticleView';
-import { Project, BlogPost } from './types';
+import { Navbar } from './components/Navbar.tsx';
+import { Hero } from './components/Hero.tsx';
+import { About } from './components/About.tsx';
+import { Skills } from './components/Skills.tsx';
+import { Projects } from './components/Projects.tsx';
+import { Blogs } from './components/Blogs.tsx';
+import { Contact } from './components/Contact.tsx';
+import { ArticleView } from './components/ArticleView.tsx';
+import { Project, BlogPost } from './types.ts';
 
 function App() {
   const [selectedItem, setSelectedItem] = useState<Project | BlogPost | null>(null);

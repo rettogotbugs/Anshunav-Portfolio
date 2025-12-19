@@ -1,111 +1,20 @@
 <div align="center">
-
-# Anshunav Bora
-
-Developer focused on building clean, reliable, and thoughtful digital experiences.
-
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
----
+# Run and deploy your AI Studio app
 
-## Overview
+This contains everything you need to run your app locally.
 
-This repository contains the source code for my personal portfolio and blog.  
-It serves as both a showcase of my work and a space where I document what I learn while building real projects.
+View your app in AI Studio: https://ai.studio/apps/drive/16IUXBayJcSaPxe3c2KH9RZ0EbIWYaCqS
 
-The blog reflects my interest in the intersection of technology, creativity, and practical development.
+## Run Locally
 
----
-
-## What This Project Includes
-
-- Modern, responsive portfolio layout  
-- Personal blog with long-form, structured articles  
-- Curated tech stack based on tools I actively use  
-- Clean UI with a focus on clarity and usability  
-- Simple and maintainable codebase  
-
----
-
-## Tech Stack
-
-- **Framework:** React / Next.js  
-- **Language:** TypeScript, JavaScript  
-- **Styling:** Tailwind CSS  
-- **Version Control:** Git, GitHub  
-- **Development Environment:** VS Code  
-
----
-
-## Blog Focus
-
-### Creative and Technical Thinking
-- Coding as a creative process  
-- Lessons from game development and system design  
-- Building interfaces that feel intentional  
-
-### Practical Development
-- Git and GitHub workflows  
-- Writing readable and maintainable code  
-- Real-world development habits  
-
----
-
-## Project Structure
-
-```txt
-src/
-├── components/        Reusable UI components
-├── pages/             Application pages
-├── data/
-│   └── blogs.ts       Blog content source
-├── styles/            Global styling
-└── utils/             Helper utilities
-````
+**Prerequisites:**  Node.js
 
 
----
-
-## Running the Project Locally
-
-```bash
-git clone https://github.com/rettogotbugs/Anshunav-Portfolio
-cd portfolio
-npm install
-npm run dev
-```
-
-The application will be available at
-`http://localhost:3000`
-
----
-
-## Purpose
-
-This portfolio is a living project that reflects how I approach development:
-
-* Learning by building
-* Prioritizing clarity over complexity
-* Improving through iteration
-
----
-
-## Location
-
-India
-
----
-
-## License
-
-This project is open for learning and reference.
-Please do not copy the design or written content directly.
-
----
-
-<div align="center">
-
-© 2025 Anshunav Bora
-
-</div>
-```
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
