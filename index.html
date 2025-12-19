@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anshunav Bora | Full Stack & AI/ML Enthusiast</title>
+    <title>Anshunav Bora | Full Stack & AI/ML</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -25,7 +25,6 @@
               'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
               'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'text-shimmer': 'textShimmer 3s linear infinite',
-              'fade-in': 'fadeIn 0.3s ease-out forwards',
             },
             keyframes: {
               blob: {
@@ -37,10 +36,6 @@
               fadeInUp: {
                 '0%': { opacity: '0', transform: 'translateY(40px)' },
                 '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
               },
               textShimmer: {
                 '0%': { backgroundPosition: '0% 50%' },
@@ -59,56 +54,42 @@
         color: #f8fafc;
         overflow-x: hidden;
       }
-      ::-webkit-scrollbar {
-        width: 6px;
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #020617; }
+      ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+      
+      .glass-nav {
+        background: rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
       }
-      ::-webkit-scrollbar-track {
-        background: #020617;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #334155;
-      }
+      
       .glass-card {
         background: rgba(15, 23, 42, 0.6);
         backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.05);
       }
-      .glass-card:hover {
-        background: rgba(30, 41, 59, 0.8);
-        border-color: rgba(96, 165, 250, 0.3);
-        box-shadow: 0 0 30px rgba(96, 165, 250, 0.1);
-      }
-      .prose h2, .prose h3 {
-        color: white !important;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-      }
-      .prose p {
-        margin-bottom: 1.5rem;
-        line-height: 1.8;
-      }
+
+      .prose h2 { color: white; font-weight: bold; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+      .prose p { color: #94a3b8; line-height: 1.8; margin-bottom: 1.25rem; }
+      .prose strong { color: white; }
+      
+      [v-cloak] { display: none; }
     </style>
     <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@18.3.1",
-    "react-dom": "https://esm.sh/react-dom@18.3.1",
-    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?external=react",
-    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
-    "lucide-react": "https://esm.sh/lucide-react@0.460.0?external=react",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
+    "vue": "https://esm.sh/vue@3.4.21",
+    "lucide-vue-next": "https://esm.sh/lucide-vue-next@0.460.0",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
   }
 }
 </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" v-cloak></div>
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>
