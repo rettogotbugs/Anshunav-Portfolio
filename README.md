@@ -51,6 +51,19 @@ The blog reflects my interest in the intersection of technology, creativity, and
 
 ---
 
+## Project Structure
+
+```txt
+src/
+├── components/        Reusable UI components
+├── pages/             Application pages
+├── data/
+│   └── blogs.ts       Blog content source
+├── styles/            Global styling
+└── utils/             Helper utilities
+````
+
+
 Running the Project Locally
 git clone https://github.com/your-username/portfolio.git
 cd portfolio
