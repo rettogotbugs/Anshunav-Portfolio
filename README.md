@@ -69,7 +69,6 @@ src/
 └── utils/             Helper utilities
 ````
 
----
 
 ## Running the Project Locally
 
