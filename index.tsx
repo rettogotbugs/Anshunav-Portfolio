@@ -1,176 +1,134 @@
-import { createApp, ref, onMounted, onUnmounted, defineComponent, h } from 'vue';
-import * as Lucide from 'lucide-vue-next';
-
-// --- Constants & Data ---
-const HERO_DATA = {
+// --- Portfolio Data ---
+const HERO = {
   name: "Anshunav Bora",
-  role: "Full Stack Developer & AI/ML Enthusiast",
-  tagline: "Building intelligent web solutions that bridge the gap between complex algorithms and seamless user experiences.",
-  socials: {
-    github: "https://github.com/rettogotbugs",
-    linkedin: "https://www.linkedin.com/in/anshunavbora",
-    twitter: "https://x.com/AnshunavBora"
-  }
+  role: "Full Stack Developer & AI Engineer",
+  email: "itzanshu15@gmail.com",
+  github: "https://github.com/rettogotbugs",
+  linkedin: "https://www.linkedin.com/in/anshunavbora",
 };
-
-const STATS = [
-  { label: "Revenue Growth", value: "250%", icon: 'TrendingUp' },
-  { label: "Projects Delivered", value: "40+", icon: 'Rocket' },
-  { label: "User Retention", value: "85%", icon: 'Users' },
-  { label: "Efficiency", value: "99.9%", icon: 'Zap' }
-];
-
-const SKILLS = [
-  { name: "Vue / Next.js", level: 95, icon: 'Layout' },
-  { name: "TypeScript", level: 90, icon: 'Code2' },
-  { name: "Python / AI", level: 90, icon: 'Terminal' },
-  { name: "Tailwind CSS", level: 95, icon: 'Palette' },
-];
 
 const PROJECTS = [
   {
-    id: "1",
-    title: "NeuroFinance Dashboard",
-    category: "AI + Web",
-    shortDescription: "Real-time stock prediction dashboard using LSTM networks.",
-    imageUrl: "https://picsum.photos/800/600?random=1",
-    technologies: ["Vue.js", "Python", "FastAPI", "TensorFlow"],
-    fullDescription: "NeuroFinance is a comprehensive dashboard that visualizes real-time stock market data and predicts future trends using advanced machine learning models."
+    id: "p1",
+    title: "NeuroFinance AI",
+    category: "AI / Machine Learning",
+    image: "https://images.unsplash.com/photo-1611974714851-48206138d731?auto=format&fit=crop&q=80&w=800",
+    desc: "A real-time financial forecasting engine using LSTM neural networks to predict market volatility.",
+    tech: ["Python", "TensorFlow", "FastAPI", "React"]
   },
   {
-    id: "2",
-    title: "E-Commerce Microservices",
-    category: "Full Stack",
-    shortDescription: "Scalable e-commerce backend with Kubernetes orchestration.",
-    imageUrl: "https://picsum.photos/800/600?random=2",
-    technologies: ["Node.js", "Kubernetes", "Docker", "RabbitMQ"],
-    fullDescription: "A fully scalable e-commerce platform designed with a microservices architecture. It handles user authentication, product catalog, and more."
+    id: "p2",
+    title: "CloudScale E-Comm",
+    category: "Infrastructure",
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800",
+    desc: "Microservices-based e-commerce platform handling 10k+ requests per second with Kubernetes.",
+    tech: ["Go", "Kubernetes", "Docker", "Redis"]
+  },
+  {
+    id: "p3",
+    title: "VisionMed Diagnostic",
+    category: "Computer Vision",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
+    desc: "AI assistant for radiologists that detects early-stage anomalies in chest X-rays with 98% accuracy.",
+    tech: ["PyTorch", "OpenCV", "Vue.js", "PostgreSQL"]
   }
 ];
 
-const BLOGS = [
-  {
-    id: "b1",
-    title: "Coding Is Creative, Not Mechanical",
-    excerpt: "Why development feels closer to art than assembly lines.",
-    date: "Jan 18, 2025",
-    imageUrl: "https://picsum.photos/800/400?random=21",
+// --- Helper: Render SVG Icons (Vanilla) ---
+const getIcon = (name: string) => {
+  const icons: Record<string, string> = {
+    github: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>`,
+    external: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`,
+    arrow: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`
+  };
+  return icons[name] || '';
+};
+
+// --- App Class ---
+class PortfolioApp {
+  root: HTMLElement;
+
+  constructor() {
+    this.root = document.getElementById('root')!;
+    this.init();
   }
-];
 
-// --- Main App Component ---
-const App = defineComponent({
-  setup() {
-    const isScrolled = ref(false);
-    const isMobileMenuOpen = ref(false);
-    const selectedItem = ref<any>(null);
-    const viewType = ref<'project' | 'blog' | null>(null);
+  init() {
+    this.render();
+    this.setupScrollAnimations();
+    this.setupEventListeners();
+  }
 
-    const handleScroll = () => {
-      isScrolled.value = window.scrollY > 50;
-    };
-
-    onMounted(() => {
-      window.addEventListener('scroll', handleScroll);
-    });
-
-    onUnmounted(() => {
-      window.removeEventListener('scroll', handleScroll);
-    });
-
-    const scrollTo = (id: string) => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      isMobileMenuOpen.value = false;
-    };
-
-    const openProject = (p: any) => {
-      selectedItem.value = p;
-      viewType.value = 'project';
-    };
-
-    const closeArticle = () => {
-      selectedItem.value = null;
-      viewType.value = null;
-    };
-
-    return {
-      isScrolled,
-      isMobileMenuOpen,
-      selectedItem,
-      viewType,
-      HERO_DATA,
-      STATS,
-      SKILLS,
-      PROJECTS,
-      BLOGS,
-      scrollTo,
-      openProject,
-      closeArticle
-    };
-  },
-  template: `
-    <div class="min-h-screen bg-dark text-slate-200">
+  render() {
+    this.root.innerHTML = `
       <!-- Navbar -->
-      <nav :class="['fixed w-full z-50 transition-all duration-300', isScrolled ? 'glass-nav shadow-lg border-b border-white/5 h-16' : 'bg-transparent h-20']">
-        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-          <div class="flex items-center gap-2 cursor-pointer" @click="scrollTo('hero')">
-            <component :is="'Code2'" class="h-8 w-8 text-primary" />
-            <span class="text-xl font-bold text-white tracking-tighter">ANSHUNAV</span>
+      <nav id="navbar" class="fixed top-0 w-full z-50 h-20 flex items-center transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
+          <a href="#" class="text-xl font-bold tracking-tighter text-white">ANSHUNAV.</a>
+          <div class="hidden md:flex gap-10 text-sm font-medium text-slate-400">
+            <a href="#about" class="hover:text-white transition-colors">About</a>
+            <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+            <a href="#contact" class="hover:text-white transition-colors">Contact</a>
           </div>
-          
-          <div class="hidden md:flex items-center gap-8">
-            <button v-for="link in ['About', 'Skills', 'Projects', 'Blog', 'Contact']" 
-                    @click="scrollTo(link.toLowerCase())"
-                    class="text-sm font-medium text-slate-400 hover:text-white transition-colors">
-              {{ link }}
-            </button>
-          </div>
-
-          <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="md:hidden p-2 text-slate-400">
-            <component :is="isMobileMenuOpen ? 'X' : 'Menu'" class="h-6 w-6" />
-          </button>
+          <a href="mailto:${HERO.email}" class="px-5 py-2 bg-white/10 hover:bg-white text-dark hover:text-dark transition-all rounded-full text-sm font-bold bg-white">
+            Hire Me
+          </a>
         </div>
       </nav>
 
       <!-- Hero -->
-      <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20">
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/20 rounded-full blur-[100px] animate-blob"></div>
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-          <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-bold text-primary uppercase bg-primary/10 rounded-full border border-primary/20">
-            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Available for hire
+      <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/20 rounded-full blur-[140px] -z-10 animate-pulse-slow"></div>
+        <div class="max-w-5xl mx-auto px-6 text-center">
+          <div class="inline-block px-4 py-1.5 mb-8 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs font-bold text-blue-400 tracking-widest uppercase animate-bounce">
+            Available for new projects
           </div>
-          <h1 class="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter">
-            Design <br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-secondary animate-text-shimmer bg-[length:200%_auto]">
-              Impact.
-            </span>
+          <h1 class="text-6xl md:text-9xl font-black text-white mb-8 tracking-tighter leading-none">
+            ENGINEERING <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">IMPACT.</span>
           </h1>
-          <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-            {{ HERO_DATA.tagline }}
+          <p class="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
+            I build highly scalable web applications and intelligent systems powered by deep learning.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button @click="scrollTo('projects')" class="px-8 py-4 bg-primary text-white font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-primary/25">
-              View My Work
-            </button>
-            <button @click="scrollTo('contact')" class="px-8 py-4 bg-white/5 border border-white/10 font-bold rounded-full hover:bg-white/10 transition-all">
-              Contact Me
-            </button>
+          <div class="flex flex-col sm:flex-row gap-5 justify-center">
+            <a href="#projects" class="px-10 py-5 bg-primary hover:bg-blue-600 text-white font-bold rounded-2xl shadow-2xl shadow-blue-500/20 transition-all hover:scale-105 flex items-center gap-2">
+              View My Work ${getIcon('arrow')}
+            </a>
+            <a href="${HERO.github}" target="_blank" class="px-10 py-5 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold rounded-2xl transition-all flex items-center gap-2">
+              Github ${getIcon('github')}
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- Stats -->
-      <section id="about" class="py-24 bg-card">
-        <div class="max-w-7xl mx-auto px-4">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div v-for="stat in STATS" class="p-8 rounded-3xl bg-dark/50 border border-white/5 hover:border-primary/20 transition-all group">
-              <div class="flex items-center justify-between mb-4">
-                <component :is="stat.icon" class="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                <span class="text-3xl font-bold text-white">{{ stat.value }}</span>
-              </div>
-              <p class="text-slate-400 font-medium">{{ stat.label }}</p>
+      <!-- About / Stats -->
+      <section id="about" class="py-32 bg-slate-900/30">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+          <div class="reveal">
+            <h2 class="text-4xl font-bold text-white mb-8">Bridging the gap between <br/> Data and Design.</h2>
+            <p class="text-lg text-slate-400 leading-relaxed mb-6">
+              With 5+ years of experience in full-stack development, I specialize in building robust distributed systems and intuitive user interfaces.
+            </p>
+            <p class="text-lg text-slate-400 leading-relaxed">
+              My approach is data-driven, focusing on performance, accessibility, and clean architecture.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-6 reveal">
+            <div class="p-8 bg-white/5 border border-white/10 rounded-3xl group hover:border-blue-500/50 transition-colors">
+              <div class="text-4xl font-black text-white mb-2">40+</div>
+              <div class="text-sm text-slate-400 font-medium uppercase tracking-widest">Projects</div>
+            </div>
+            <div class="p-8 bg-white/5 border border-white/10 rounded-3xl group hover:border-blue-500/50 transition-colors">
+              <div class="text-4xl font-black text-white mb-2">99.9%</div>
+              <div class="text-sm text-slate-400 font-medium uppercase tracking-widest">Uptime</div>
+            </div>
+            <div class="p-8 bg-white/5 border border-white/10 rounded-3xl group hover:border-blue-500/50 transition-colors">
+              <div class="text-4xl font-black text-white mb-2">250%</div>
+              <div class="text-sm text-slate-400 font-medium uppercase tracking-widest">Growth</div>
+            </div>
+            <div class="p-8 bg-white/5 border border-white/10 rounded-3xl group hover:border-blue-500/50 transition-colors">
+              <div class="text-4xl font-black text-white mb-2">15+</div>
+              <div class="text-sm text-slate-400 font-medium uppercase tracking-widest">Stack tools</div>
             </div>
           </div>
         </div>
@@ -178,75 +136,141 @@ const App = defineComponent({
 
       <!-- Projects -->
       <section id="projects" class="py-32">
-        <div class="max-w-7xl mx-auto px-4">
-          <div class="flex items-end justify-between mb-16">
-            <div>
-              <h2 class="text-4xl font-bold text-white mb-4">Selected Work</h2>
-              <p class="text-slate-400">Case studies of engineering excellence.</p>
-            </div>
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+            <h2 class="text-5xl font-black text-white reveal leading-none">SELECTED <br/>WORKS.</h2>
+            <p class="text-slate-400 max-w-xs reveal">A showcase of engineering excellence and digital craftsmanship.</p>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div v-for="project in PROJECTS" 
-                 class="group relative aspect-[16/10] rounded-3xl overflow-hidden cursor-pointer border border-white/5"
-                 @click="openProject(project)">
-              <img :src="project.imageUrl" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/20 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 p-8 w-full">
-                <span class="inline-block px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-bold text-white mb-4">
-                  {{ project.category }}
-                </span>
-                <h3 class="text-2xl font-bold text-white mb-2">{{ project.title }}</h3>
-                <p class="text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
-                  {{ project.shortDescription }}
-                </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            ${PROJECTS.map(p => `
+              <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl overflow-hidden cursor-pointer reveal shadow-2xl" onclick="window.openModal('${p.id}')">
+                <div class="h-64 overflow-hidden">
+                  <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+                </div>
+                <div class="p-8">
+                  <div class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">${p.category}</div>
+                  <h3 class="text-2xl font-bold text-white mb-4">${p.title}</h3>
+                  <p class="text-slate-400 text-sm line-clamp-2">${p.desc}</p>
+                </div>
+                <div class="absolute inset-0 bg-blue-500/90 backdrop-blur-sm p-8 flex flex-col justify-between opacity-0 translate-y-full transition-all duration-500 project-overlay">
+                  <div class="text-white">
+                    <h4 class="text-2xl font-bold mb-4">${p.title}</h4>
+                    <div class="flex flex-wrap gap-2">
+                      ${p.tech.map(t => `<span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold">${t}</span>`).join('')}
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 text-white font-bold">
+                    View Project ${getIcon('external')}
+                  </div>
+                </div>
               </div>
-            </div>
+            `).join('')}
           </div>
         </div>
       </section>
 
       <!-- Contact -->
-      <footer id="contact" class="py-32 border-t border-white/5">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-          <h2 class="text-5xl font-bold text-white mb-8">Let's build something <span class="text-primary">great</span>.</h2>
-          <a :href="'mailto:' + HERO_DATA.email" class="text-3xl md:text-5xl font-light text-slate-400 hover:text-white transition-colors break-words">
-            {{ HERO_DATA.email }}
+      <section id="contact" class="py-40 bg-black relative">
+        <div class="absolute inset-0 bg-blue-500/5 -z-10"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="text-5xl md:text-7xl font-black text-white mb-12 tracking-tight">LET'S START A <br/> PROJECT.</h2>
+          <a href="mailto:${HERO.email}" class="text-3xl md:text-5xl font-light text-slate-500 hover:text-blue-400 transition-colors break-words">
+            ${HERO.email}
           </a>
-          <div class="mt-16 flex justify-center gap-8">
-            <a v-for="(url, key) in HERO_DATA.socials" :href="url" class="text-slate-500 hover:text-white capitalize transition-colors">{{ key }}</a>
+          <div class="mt-24 flex justify-center gap-12 text-slate-500">
+            <a href="${HERO.github}" target="_blank" class="hover:text-white transition-colors">GitHub</a>
+            <a href="${HERO.linkedin}" target="_blank" class="hover:text-white transition-colors">LinkedIn</a>
           </div>
         </div>
+      </section>
+
+      <footer class="py-12 border-t border-white/5 text-center text-slate-600 text-sm">
+        &copy; 2025 Anshunav Bora. All rights reserved. Built with Pure TS.
       </footer>
 
-      <!-- Modal -->
-      <div v-if="selectedItem" class="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-12 animate-fade-in">
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" @click="closeArticle"></div>
-        <div class="relative w-full max-w-5xl bg-dark border border-white/10 rounded-3xl overflow-hidden shadow-2xl h-full flex flex-col animate-fade-in-up">
-          <div class="flex items-center justify-between p-6 border-b border-white/5">
-             <h3 class="text-xl font-bold text-white">{{ selectedItem.title }}</h3>
-             <button @click="closeArticle" class="p-2 hover:bg-white/5 rounded-full"><component :is="'X'" /></button>
+      <!-- Modal Container (Hidden) -->
+      <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 modal-backdrop" onclick="window.closeModal()"></div>
+        <div class="relative w-full max-w-4xl bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl h-[85vh] flex flex-col">
+          <div id="modal-content" class="overflow-y-auto flex-grow p-8 md:p-12">
+            <!-- Dynamic Content -->
           </div>
-          <div class="overflow-y-auto p-8 md:p-12 flex-grow">
-            <img :src="selectedItem.imageUrl" class="w-full h-64 md:h-96 object-cover rounded-2xl mb-12" />
-            <div class="prose prose-invert max-w-none">
-              <p class="text-xl text-slate-300 mb-8">{{ selectedItem.fullDescription }}</p>
-              <h2 class="text-2xl font-bold text-white mb-4">Key Technologies</h2>
-              <div class="flex flex-wrap gap-2 mb-12">
-                <span v-for="tech in selectedItem.technologies" class="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-primary font-mono text-sm">{{ tech }}</span>
-              </div>
-            </div>
-          </div>
+          <button onclick="window.closeModal()" class="absolute top-6 right-6 p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
       </div>
-    </div>
-  `
-});
-
-const app = createApp(App);
-// Register Lucide icons globally
-Object.entries(Lucide).forEach(([name, component]) => {
-  if (typeof component === 'object') {
-    app.component(name, component);
+    `;
   }
-});
-app.mount('#root');
+
+  setupScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav?.classList.add('glass-nav', 'h-16');
+        nav?.classList.remove('h-20');
+      } else {
+        nav?.classList.remove('glass-nav', 'h-16');
+        nav?.classList.add('h-20');
+      }
+    });
+  }
+
+  setupEventListeners() {
+    // Expose modal functions to window for onclick handlers
+    (window as any).openModal = (id: string) => {
+      const project = PROJECTS.find(p => p.id === id);
+      if (!project) return;
+      
+      const modal = document.getElementById('project-modal');
+      const content = document.getElementById('modal-content');
+      
+      if (modal && content) {
+        content.innerHTML = `
+          <div class="mb-10">
+            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-4 inline-block">${project.category}</span>
+            <h2 class="text-4xl font-black text-white mb-8">${project.title}</h2>
+            <img src="${project.image}" class="w-full h-80 object-cover rounded-2xl mb-10 shadow-2xl" />
+            <div class="prose prose-invert max-w-none text-slate-300">
+              <p class="text-xl leading-relaxed mb-10">${project.desc}</p>
+              <h3 class="text-xl font-bold text-white mb-6">Technologies Used</h3>
+              <div class="flex flex-wrap gap-3 mb-12">
+                ${project.tech.map(t => `<span class="px-5 py-2 bg-white/5 border border-white/10 rounded-xl text-blue-400 font-mono text-sm">${t}</span>`).join('')}
+              </div>
+              <p class="text-slate-400">
+                This project represents a significant engineering challenge involving complex system integration and performance optimization. 
+                Focusing on user-centric design while maintaining high backend efficiency.
+              </p>
+            </div>
+          </div>
+        `;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    (window as any).closeModal = () => {
+      const modal = document.getElementById('project-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'unset';
+      }
+    };
+  }
+}
+
+// Start the app
+new PortfolioApp();
