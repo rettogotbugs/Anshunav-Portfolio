@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { HERO_DATA } from '../constants.tsx';
 import { ArrowRight, Github, Linkedin, Twitter, ChevronDown } from 'lucide-react';
@@ -12,8 +13,8 @@ export const Hero: React.FC<{ onNavigate: (id: string) => void }> = ({ onNavigat
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center z-10">
         
         <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20 hover:bg-primary/20 transition-colors cursor-default">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-semibold tracking-wider text-emerald-400 uppercase bg-emerald-400/10 rounded-full border border-emerald-400/20 hover:bg-emerald-400/20 transition-colors cursor-default">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             Open to opportunities
           </div>
         </div>
