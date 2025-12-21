@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail, MapPin, Github, Linkedin, ArrowRight, Copy, ExternalLink, Send } from 'lucide-react';
-import { HERO_DATA } from '../constants.tsx';
+import { HERO_DATA } from '../constants';
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = React.useState(false);
@@ -129,12 +129,10 @@ export const Contact: React.FC = () => {
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-slate-500 text-sm">
-          <div className="text-center md:text-left mb-4 md:mb-0">
-            <p>&copy; 2025 {HERO_DATA.name}. Building things for the web.</p>
-          </div>
-          <div className="flex items-center gap-6">
+          <p>&copy; {new Date().getFullYear()} {HERO_DATA.name}. Built with React, Tailwind & Love.</p>
+          <div className="flex items-center gap-6 mt-4 md:mt-0">
             <span className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" /> Assam, India
+              <MapPin className="w-4 h-4" /> {HERO_DATA.location}
             </span>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { BLOGS } from '../constants.tsx';
-import { BlogPost } from '../types.ts';
+import { BLOGS } from '../constants';
+import { BlogPost } from '../types';
 import { BookOpen, Calendar, Clock, Feather } from 'lucide-react';
 
 interface BlogsProps {

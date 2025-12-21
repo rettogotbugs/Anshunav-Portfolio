@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { STATS } from '../constants.tsx';
+import { STATS } from '../constants';
 import { User } from 'lucide-react';
 
 export const About: React.FC = () => {
@@ -34,26 +34,44 @@ export const About: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header - Text Content */}
-        <div className="mb-20 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
-            <User className="w-4 h-4" />
-            <span>About Me</span>
+        {/* Header */}
+        <div className="flex flex-col md:flex-row gap-12 items-center mb-20">
+          <div className="flex-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+              <User className="w-4 h-4" />
+              <span>About Me</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+              Designing with purpose, <br />
+              <span className="text-slate-400">Engineering for impact.</span>
+            </h2>
+            <p className="text-lg text-slate-300 leading-relaxed mb-6">
+              I am a passionate Full Stack Developer and AI enthusiast with a knack for building 
+              intelligent applications. My journey involves bridging the gap between robust backend architectures 
+              and intuitive frontend designs, all while integrating cutting-edge machine learning models.
+            </p>
+            <p className="text-lg text-slate-400 leading-relaxed">
+              With a background in digital marketing and design, I don't just write code—I build products that 
+              grow businesses and delight users. From optimizing conversion rates to fine-tuning Transformer models, 
+              I bring a holistic approach to every project.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Designing with purpose, <br />
-            <span className="text-slate-400">Building for impact.</span>
-          </h2>
-          <p className="text-lg text-slate-300 leading-relaxed mb-6">
-            I am a passionate Full Stack Developer and AI enthusiast with a knack for building 
-            intelligent applications. My journey involves bridging the gap between robust backend architectures 
-            and intuitive frontend designs, all while integrating cutting-edge machine learning models.
-          </p>
-          <p className="text-lg text-slate-400 leading-relaxed">
-            With a background in digital marketing and design, I don't just write code—I build products that 
-            grow businesses and delight users. From optimizing conversion rates to fine-tuning Transformer models, 
-            I bring a holistic approach to every project.
-          </p>
+          
+          {/* Visual/Image placeholder or abstract art */}
+          <div className="flex-1 w-full max-w-md">
+             <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-8 flex items-center justify-center group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-secondary/20 opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="text-center relative z-10">
+                  <span className="text-8xl font-bold text-white/5 group-hover:text-white/10 transition-colors duration-500">JS</span>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-8xl font-bold text-white/5 group-hover:text-white/10 transition-colors duration-500 ml-16 mt-16">PY</span>
+                  </div>
+                </div>
+                {/* Decorative circles */}
+                <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/30 rounded-full blur-3xl animate-blob"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-secondary/30 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+             </div>
+          </div>
         </div>
 
         {/* Stats Grid */}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { PROJECTS, HERO_DATA } from '../constants.tsx';
-import { Project } from '../types.ts';
+import { PROJECTS } from '../constants';
+import { Project } from '../types';
 import { ArrowUpRight, Github, Code } from 'lucide-react';
 
 interface ProjectsProps {
@@ -23,7 +23,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
               A collection of projects where design meets robust engineering.
             </p>
           </div>
-          <a href={HERO_DATA.socials.github} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white flex items-center gap-2 transition-colors border-b border-transparent hover:border-white pb-1">
+          <a href="https://github.com" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white flex items-center gap-2 transition-colors border-b border-transparent hover:border-white pb-1">
             View Github <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

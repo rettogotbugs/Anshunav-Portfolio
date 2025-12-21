@@ -37,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           <div className="flex items-center cursor-pointer" onClick={() => onNavigate('hero')}>
             <Code2 className="h-8 w-8 text-primary" />
             <span className="ml-2 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-              Anshunav
+              Anshunav.dev
             </span>
           </div>
           
